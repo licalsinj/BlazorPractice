@@ -1,12 +1,58 @@
 <p>
-    <b>Name: </b><span>@currentUser.FirstName @currentUser.LastName</span><br/>
+    <b>Name: </b><span>@((MarkupString)@currentUser.DecoratedName())</span><br/>
     <b>Email: </b><span>@currentUser.Email</span><br/>
-    <b>ID: </b><span>@currentUser.id.ToString()</span><br/>
+    <b>ID: </b><span>@currentUser.Id.ToString()</span><br/>
     <b>Settings:</b><br/>
-        <span><i>Italic: </i>@currentUser.isItal.ToString()</span><br/>
-        <span><b>Bold: </b>@currentUser.isBold.ToString()</span><br/>
-        <span><u>Underline: </u>@currentUser.isUnln.ToString()</span><br/>
-        <span><d>Strike Through: </d>@currentUser.isStrk.ToString()</span><br/>
+
+    <table>
+    <tr>
+        <th>Setting</th>
+        <th>Status</th>
+        <th>Debug</th>
+    </tr>
+    <tr>
+        <td text-align="right">Italics:</td>
+        <td><input id="isItal" type="checkbox" @bind="currentUser.IsItal"></td>
+        <td><label for="isItal">@currentUser.IsItal</label></td>
+    </tr>
+    <tr>
+        <td><b>Bold:</b></td>
+        <td><input id="isBold" type="checkbox" @bind="currentUser.IsBold"></td>
+        <td><label for="isBold">@currentUser.IsBold</label></td>
+    </tr>
+    <tr>
+        <td><u>Underline:</u></td>
+        <td><input id="isUnln" type="checkbox" @bind="currentUser.IsUnln"></td>
+        <td><label for="isUnln">@currentUser.IsUnln</label></td>
+    </tr>
+    <tr>
+        <td><del>Strike Through:</del></td>
+        <td><input id="isStrk" type="checkbox" @bind="currentUser.IsStrk"></td>
+        <td><label for="isStrk">@currentUser.IsStrk</label></td>
+    </tr>
+    </table> 
+
+
+        <span>
+            <i>Italic: </i>
+            
+            
+        </span><br/>
+        <span>
+            
+            
+            
+        </span><br/>
+        <span>
+            
+            
+            
+        </span><br/>
+        <span>
+            
+            
+            
+        </span><br/>
 </p>
 
 @code {
