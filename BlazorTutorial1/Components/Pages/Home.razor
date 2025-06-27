@@ -3,77 +3,72 @@
 
 <PageTitle>User Management</PageTitle>
 
-<h1>Welcome @((MarkupString)myUsers[@selectedUser].BuildDisplayName())</h1>
+<h1>Welcome @((MarkupString)@myUsers.Where(u => u.Id == selectedUser).FirstOrDefault().DecoratedName())</h1>
 
 <label for="users">Change User:</label>
 <select class="users" @onchange="OnUserSelected">
-    @foreach(var user in @myUsers){
-        <option value=@user.Key>@((MarkupString)user.Value.BuildDisplayName())</option>
+    @foreach(User user in @myUsers){
+        <option value=@user.Id>@((MarkupString)user.FullName())</option>
     }
 </select>
-<br>
+<br/>
+
 <h2>User Settings</h2>
-<p>Set Italics: 
-    <input type="checkbox" @bind="myUsers[selectedUser].isItalic">
-</p>
-<p>Set Boldface: 
-    <input type="checkbox" @bind="myUsers[selectedUser].isBold">
-</p>
-<p>Set Underlined: 
-    <input type="checkbox" @bind="myUsers[selectedUser].isUnderline">
-</p>
-<p>Set Strikethrough: 
-    <input type="checkbox" @bind="myUsers[selectedUser].isStrike">
+
+<br/>
+<p>
+    <UserEdit currentUser="@myUsers.Where(u => u.Id == selectedUser).FirstOrDefault()"></UserEdit>
 </p>
 
-@code{
-    private Dictionary<string,UserDecorations> myUsers = new Dictionary<string,UserDecorations>();
-    private string selectedUser = "";
-    // private bool isItalics = false;
-
-    protected override void OnInitialized(){
+@code
+{
+    private Guid selectedUser;
+    public List<User> myUsers = new List<User>();
+    protected override void OnInitialized()
+    {
         base.OnInitialized();
-        // load up the users manually
-        Console.WriteLine("OnInitialized() hit");
-        myUsers.Add("Alice",new UserDecorations("Alice"));
-        myUsers.Add("Bob",new UserDecorations("Bob"));
-        myUsers.Add("Charlie",new UserDecorations("Charlie"));
-        selectedUser = "Alice";
+        myUsers = new List<User>
+        {
+            new User
+            {
+                Id = Guid.NewGuid(),
+                FirstName = "Alice",
+                LastName = "Smith",
+                Email = "Alice.Smith@mydomain.com",
+                IsItal = true,
+                IsBold = false,
+                IsUnln=false,
+                IsStrk = false,
+            },
+            new User
+            {
+                Id = Guid.NewGuid(),
+                FirstName = "Bob",
+                LastName = "Roberts",
+                Email = "Bob.Roberts@mydomain.com",
+                IsItal = false,
+                IsBold = true,
+                IsUnln=false,
+                IsStrk = false,
+            },
+            new User
+            {
+                Id = Guid.NewGuid(),
+                FirstName = "Charlie",
+                LastName = "Adams",
+                Email = "Charlie.Adams@mydomain.com",
+                IsItal = false,
+                IsBold = false,
+                IsUnln=false,
+                IsStrk = true,
+            }
+        };
+        selectedUser = myUsers.FirstOrDefault().Id;
     }
 
     public void OnUserSelected(ChangeEventArgs args){
-        selectedUser = args?.Value?.ToString();
-    }
-
-    public class UserDecorations{
-        public string userName {get;set;}
-        public bool isItalic {get;set;}
-        public bool isBold {get;set;}
-        public bool isUnderline {get;set;}
-        public bool isStrike {get;set;}
-        public UserDecorations(string name)
-        {
-            userName = name;
-            isItalic = false;
-            isBold = false;
-            isUnderline = false;
-            isStrike = false;
-        }
-        public string BuildDisplayName() {
-            string returnName = this.userName;
-            if(isItalic){
-                returnName = "<i>" + returnName + "</i>"; 
-            }
-            if(isBold){
-                returnName = "<b>" + returnName + "</b>"; 
-            }
-            if(isUnderline){
-                returnName = "<u>" + returnName + "</u>"; 
-            }
-            if(isStrike){
-                returnName = "<del>" + returnName + "</del>"; 
-            }
-            return returnName;
-        }
+        // To Avoid having to convert a nullable value from a string to a guid I look it up and then return the guid. 
+        // TODO: DO this better. If the comparison fails I won't have a selected user.
+        selectedUser = myUsers.Where(u => u.Id.ToString() == args?.Value?.ToString()).FirstOrDefault().Id;
     }
 }

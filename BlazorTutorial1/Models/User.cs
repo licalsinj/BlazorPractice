@@ -11,7 +11,7 @@ namespace BlazorTutorial1.Models
         public required string Email { get; set; }
         // TODO Rework this so it's a dictionary of options or something more dynamic
         //      so you can build the settings table better in UserEdit.razor
-        
+
         //Boolean tracking if name should be italisized
         public required bool IsItal { get; set; }
         //Boolean tracking if name should be bolded
@@ -23,19 +23,27 @@ namespace BlazorTutorial1.Models
         public string DecoratedName()
         {
             string returnName = this.FirstName + " " + this.LastName;
-            if(IsItal){
-                returnName = "<i>" + returnName + "</i>"; 
+            if (IsItal)
+            {
+                returnName = "<i>" + returnName + "</i>";
             }
-            if(IsBold){
-                returnName = "<b>" + returnName + "</b>"; 
+            if (IsBold)
+            {
+                returnName = "<b>" + returnName + "</b>";
             }
-            if(IsUnln){
-                returnName = "<u>" + returnName + "</u>"; 
+            if (IsUnln)
+            {
+                returnName = "<u>" + returnName + "</u>";
             }
-            if(IsStrk){
-                returnName = "<del>" + returnName + "</del>"; 
+            if (IsStrk)
+            {
+                returnName = "<del>" + returnName + "</del>";
             }
             return returnName;
+        }
+        public string FullName()
+        {
+            return FirstName + " " + LastName;
         }
     }
 }
