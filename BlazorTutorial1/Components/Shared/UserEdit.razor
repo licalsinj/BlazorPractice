@@ -1,0 +1,15 @@
+<p>
+    <b>Name: </b><span>@currentUser.FirstName @currentUser.LastName</span><br/>
+    <b>Email: </b><span>@currentUser.Email</span><br/>
+    <b>ID: </b><span>@currentUser.id.ToString()</span><br/>
+    <b>Settings:</b><br/>
+        <span><i>Italic: </i>@currentUser.isItal.ToString()</span><br/>
+        <span><b>Bold: </b>@currentUser.isBold.ToString()</span><br/>
+        <span><u>Underline: </u>@currentUser.isUnln.ToString()</span><br/>
+        <span><d>Strike Through: </d>@currentUser.isStrk.ToString()</span><br/>
+</p>
+
+@code {
+    [Parameter]
+    public User currentUser {get;set;}
+}
