@@ -14,16 +14,16 @@
 <br>
 <h2>User Settings</h2>
 <p>Set Italics: 
-    <input type="checkbox" checked="@myUsers[selectedUser].isItalic" @oninput="ItalicChanged">
+    <input type="checkbox" @bind="myUsers[selectedUser].isItalic">
 </p>
 <p>Set Boldface: 
-    <input type="checkbox" checked="@myUsers[selectedUser].isBold" @oninput="BoldChanged">
+    <input type="checkbox" @bind="myUsers[selectedUser].isBold">
 </p>
 <p>Set Underlined: 
-    <input type="checkbox" checked="@myUsers[selectedUser].isUnderline" @oninput="UnderlineChanged">
+    <input type="checkbox" @bind="myUsers[selectedUser].isUnderline">
 </p>
 <p>Set Strikethrough: 
-    <input type="checkbox" checked="@myUsers[selectedUser].isStrike" @oninput="StrikeChanged">
+    <input type="checkbox" @bind="myUsers[selectedUser].isStrike">
 </p>
 
 @code{
@@ -43,19 +43,6 @@
 
     public void OnUserSelected(ChangeEventArgs args){
         selectedUser = args?.Value?.ToString();
-    }
-
-    public void ItalicChanged(ChangeEventArgs e){
-        myUsers[selectedUser].isItalic = (bool)e.Value;
-    }
-    public void BoldChanged(ChangeEventArgs e){
-        myUsers[selectedUser].isBold = (bool)e.Value;
-    }
-    public void UnderlineChanged(ChangeEventArgs e){
-        myUsers[selectedUser].isUnderline = (bool)e.Value;
-    }
-    public void StrikeChanged(ChangeEventArgs e){
-        myUsers[selectedUser].isStrike = (bool)e.Value;
     }
 
     public class UserDecorations{
