@@ -6,36 +6,41 @@
 }
 
 @code {
-    public List<User> myUsers = new List<User>{
-        new User{
-            id = Guid.NewGuid(),
-            FirstName = "Alice",
-            LastName = "Smith",
-            Email = "Alice.Smith@mydomain.com",
-            isItal = false,
-            isBold = false,
-            isStrk = false,
-            isUnln=false,
-        },
-        new User{
-            id = Guid.NewGuid(),
-            FirstName = "Bob",
-            LastName = "Roberts",
-            Email = "Bob.Roberts@mydomain.com",
-            isItal = false,
-            isBold = false,
-            isStrk = false,
-            isUnln=false,
-        },
-        new User{
-            id = Guid.NewGuid(),
-            FirstName = "Charlie",
-            LastName = "Adams",
-            Email = "Charlie.Adams@mydomain.com",
-            isItal = false,
-            isBold = false,
-            isStrk = false,
-            isUnln=false,
-        }
-    };
+    public List<User> myUsers = new List<User>();
+    protected override void OnInitialized(){
+        base.OnInitialized();
+        myUsers = new List<User>{
+            new User{
+                id = Guid.NewGuid(),
+                FirstName = "Alice",
+                LastName = "Smith",
+                Email = "Alice.Smith@mydomain.com",
+                isItal = false,
+                isBold = false,
+                isStrk = false,
+                isUnln=false,
+            },
+            new User{
+                id = Guid.NewGuid(),
+                FirstName = "Bob",
+                LastName = "Roberts",
+                Email = "Bob.Roberts@mydomain.com",
+                isItal = false,
+                isBold = false,
+                isStrk = false,
+                isUnln=false,
+            },
+            new User{
+                id = Guid.NewGuid(),
+                FirstName = "Charlie",
+                LastName = "Adams",
+                Email = "Charlie.Adams@mydomain.com",
+                isItal = false,
+                isBold = false,
+                isStrk = false,
+                isUnln=false,
+            }
+        };
+
+    }
 }
