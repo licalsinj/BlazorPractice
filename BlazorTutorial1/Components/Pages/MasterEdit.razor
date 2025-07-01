@@ -1,15 +1,15 @@
 ﻿@page "/master-edit"
+@inject BlazorTutorial1.IServices.IUserService userService
 @rendermode InteractiveServer
 
-@foreach(var user in @myUsers){
+@foreach(var user in @userService.GetUsers()){
     <UserEdit currentUser="@user"></UserEdit>
 }
 
 @code {
-    public List<User> myUsers = new List<User>();
     protected override void OnInitialized(){
         base.OnInitialized();
-        myUsers = new List<User>{
+        @* myUsers = new List<User>{
             new User{
                 Id = Guid.NewGuid(),
                 FirstName = "Alice",
@@ -40,7 +40,7 @@
                 IsUnln=false,
                 IsStrk = true,
             }
-        };
+        }; *@
 
     }
 }
