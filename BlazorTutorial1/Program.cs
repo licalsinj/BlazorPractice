@@ -1,10 +1,16 @@
 using BlazorTutorial1.Components;
+using BlazorTutorial1.Services;
+using BlazorTutorial1.IServices;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+ConfigureServices(builder.Services);
+
+
 
 var app = builder.Build();
 
@@ -26,3 +32,8 @@ app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 
 app.Run();
+
+static void ConfigureServices(IServiceCollection services)
+{
+	services.AddSingleton<IUserService, UserService>();
+}
