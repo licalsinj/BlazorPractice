@@ -1,0 +1,45 @@
+@page "/new-user"
+@inject BlazorTutorial1.IServices.IUserService userService
+@rendermode InteractiveServer
+
+<PageTitle>New User</PageTitle>
+<p>
+    <input placeholder="First Name" @bind="firstName"/>
+    <br>
+    <input placeholder="Last Name" @bind="lastName"/>
+    <br>
+    <input placeholder="Email@Domain.com" @bind="email"/>
+    <br>
+    <button @onclick="@AddNewUser">Create New User</button>
+</p>
+
+<p>
+    @if(latestUserId != Guid.Empty){
+        <h3>Successfully Created User: @((MarkupString)userService.GetUserById(latestUserId).FullName())</h3>
+        <UserEdit currentUser="@userService.GetUserById(latestUserId)"></UserEdit>
+    }
+    
+</p>
+
+@code {
+    public string firstName;
+    public string lastName;
+    public string email;
+    public Guid latestUserId = Guid.Empty;
+    public void AddNewUser() {
+        latestUserId = Guid.NewGuid();
+        userService.AddUser(new User{
+                                Id = latestUserId,
+                                FirstName = firstName,
+                                LastName = lastName,
+                                Email = email,
+                                IsItal = false,
+                                IsBold = false,
+                                IsUnln=false,
+                                IsStrk = false,
+            });
+        firstName = "";
+        lastName = "";
+        email = "";
+    }
+}

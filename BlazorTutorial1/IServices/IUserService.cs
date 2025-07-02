@@ -8,5 +8,7 @@ namespace BlazorTutorial1.IServices
 		List<User> GetUsers();
 		void AddUser(User user);
 
+		User? GetUserById(Guid id);
+
 	}
 }
