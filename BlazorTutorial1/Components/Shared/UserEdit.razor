@@ -1,4 +1,4 @@
-<p>
+<div>
     <b>Name: </b><span>@((MarkupString)@currentUser.DecoratedName())</span><br/>
     <b>Email: </b><span>@currentUser.Email</span><br/>
     <b>ID: </b><span>@currentUser.Id.ToString()</span><br/>
@@ -31,29 +31,7 @@
         <td><label for="isStrk">@currentUser.IsStrk</label></td>
     </tr>
     </table> 
-
-
-        <span>
-            <i>Italic: </i>
-            
-            
-        </span><br/>
-        <span>
-            
-            
-            
-        </span><br/>
-        <span>
-            
-            
-            
-        </span><br/>
-        <span>
-            
-            
-            
-        </span><br/>
-</p>
+</div>
 
 @code {
     [Parameter]

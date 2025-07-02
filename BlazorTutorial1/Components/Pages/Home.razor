@@ -1,74 +1,42 @@
 ﻿@page "/"
 @rendermode InteractiveServer
+@inject BlazorTutorial1.IServices.IUserService userService
 
-<PageTitle>User Management</PageTitle>
+<PageTitle>Home</PageTitle>
 
-<h1>Welcome @((MarkupString)@myUsers.Where(u => u.Id == selectedUser).FirstOrDefault().DecoratedName())</h1>
+<h1>Welcome @((MarkupString)userService.GetUserById(selectedUserId).FullName())</h1>
 
-<label for="users">Change User:</label>
+<label for="users">Select User:</label>
 <select class="users" @onchange="OnUserSelected">
-    @foreach(User user in @myUsers){
+    @foreach(User user in @userService.GetUsers()){
         <option value=@user.Id>@((MarkupString)user.FullName())</option>
     }
 </select>
 <br/>
 
 <h2>User Settings</h2>
-
 <br/>
 <p>
-    <UserEdit currentUser="@myUsers.Where(u => u.Id == selectedUser).FirstOrDefault()"></UserEdit>
+    <UserEdit currentUser="@userService.GetUserById(selectedUserId)"></UserEdit>
 </p>
 
 @code
 {
-    private Guid selectedUser;
-    public List<User> myUsers = new List<User>();
-    protected override void OnInitialized()
-    {
+    private Guid selectedUserId;
+    protected override void OnInitialized(){
         base.OnInitialized();
-        myUsers = new List<User>
-        {
-            new User
-            {
-                Id = Guid.NewGuid(),
-                FirstName = "Alice",
-                LastName = "Smith",
-                Email = "Alice.Smith@mydomain.com",
-                IsItal = true,
-                IsBold = false,
-                IsUnln=false,
-                IsStrk = false,
-            },
-            new User
-            {
-                Id = Guid.NewGuid(),
-                FirstName = "Bob",
-                LastName = "Roberts",
-                Email = "Bob.Roberts@mydomain.com",
-                IsItal = false,
-                IsBold = true,
-                IsUnln=false,
-                IsStrk = false,
-            },
-            new User
-            {
-                Id = Guid.NewGuid(),
-                FirstName = "Charlie",
-                LastName = "Adams",
-                Email = "Charlie.Adams@mydomain.com",
-                IsItal = false,
-                IsBold = false,
-                IsUnln=false,
-                IsStrk = true,
-            }
-        };
-        selectedUser = myUsers.FirstOrDefault().Id;
+        User firstUser = userService.GetUsers().FirstOrDefault();
+        if(firstUser != null) {
+            selectedUserId = firstUser.Id;
+        }
+        else {
+            selectedUserId = Guid.Empty;
+        }
+        
     }
-
     public void OnUserSelected(ChangeEventArgs args){
         // To Avoid having to convert a nullable value from a string to a guid I look it up and then return the guid. 
         // TODO: DO this better. If the comparison fails I won't have a selected user.
-        selectedUser = myUsers.Where(u => u.Id.ToString() == args?.Value?.ToString()).FirstOrDefault().Id;
+        selectedUserId = Guid.Parse(args?.Value.ToString());
     }
 }

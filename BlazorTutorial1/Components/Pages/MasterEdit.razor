@@ -2,6 +2,8 @@
 @inject BlazorTutorial1.IServices.IUserService userService
 @rendermode InteractiveServer
 
+<PageTitle>User Management</PageTitle>
+
 @foreach(var user in @userService.GetUsers()){
     <UserEdit currentUser="@user"></UserEdit>
 }

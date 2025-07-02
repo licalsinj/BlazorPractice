@@ -15,5 +15,24 @@ namespace BlazorTutorial1.Services
         {
             userList.Add(user);
         }
+        public User GetUserById(Guid id)
+        {
+            User? returnUser = userList.Where(u => u.Id == id).FirstOrDefault();
+            if (returnUser != null)
+            {
+                return returnUser;
+            }
+            return new User
+            {
+                Id = Guid.Empty,
+                FirstName = "",
+                LastName = "",
+                Email = "",
+                IsBold = false,
+                IsItal = false,
+                IsStrk = false,
+                IsUnln = false,
+            };
+        }
     }
 }
