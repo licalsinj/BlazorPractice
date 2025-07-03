@@ -17,14 +17,14 @@ namespace BlazorTutorial1.Services
         }
         public User GetUserById(Guid id)
         {
-            User? returnUser = userList.Where(u => u.Id == id).FirstOrDefault();
+            User? returnUser = userList.Where(u => u.UserId == id).FirstOrDefault();
             if (returnUser != null)
             {
                 return returnUser;
             }
             return new User
             {
-                Id = Guid.Empty,
+                UserId = Guid.Empty,
                 FirstName = "",
                 LastName = "",
                 Email = "",

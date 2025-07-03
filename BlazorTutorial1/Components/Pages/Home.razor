@@ -9,7 +9,7 @@
 <label for="users">Select User:</label>
 <select class="users" @onchange="OnUserSelected">
     @foreach(User user in @userService.GetUsers()){
-        <option value=@user.Id>@((MarkupString)user.FullName())</option>
+        <option value=@user.UserId>@((MarkupString)user.FullName())</option>
     }
 </select>
 <br/>
@@ -27,7 +27,7 @@
         base.OnInitialized();
         User firstUser = userService.GetUsers().FirstOrDefault();
         if(firstUser != null) {
-            selectedUserId = firstUser.Id;
+            selectedUserId = firstUser.UserId;
         }
         else {
             selectedUserId = Guid.Empty;
